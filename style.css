@@ -29,6 +29,29 @@ body {
     flex: 1;
 }
 
+.containerPlacar{
+    text-align: center;
+}
+
+.placar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
+.simbolo{
+    font-size: 80px;
+    margin-bottom: 10px;
+}
+
+.botoes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
 .footer{
     flex-direction: column;
     padding: 20px;
@@ -51,4 +74,25 @@ a {
 
 a:hover {
     color: bisque;
+}
+
+button{
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    outline: none;
+    background-color: #393e46;
+    width: 160px;
+    height: 160px;
+    border-radius: 10px;
+}
+
+button:hover{
+    background-color: #4a4f57;
+}
+
+button:active{
+    background-color: #5b5f68;
 }
