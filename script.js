@@ -21,7 +21,11 @@ function jogaRound(escolhaJogador, escolhaMaquina){
     ){
         vencedor = 'maquina';
         maquinaScore ++;
+    }else{
+        console.log('erro');
     }
+
+    atualizarPlacar(vencedor, escolhaJogador, escolhaMaquina);
 }
 
 function gerarEscolhaMaquina (){
@@ -36,8 +40,110 @@ function gerarEscolhaMaquina (){
     }
 }
 
-function jogo(){
-    while (!(jogadorScore == 5 || maquinaScore == 5)){
-        
+let acabouOJogo = () => jogadorScore == 5 || maquinaScore == 5;
+
+const placarJogador = document.getElementById('scoreJogador');
+const simboloJogador = document.getElementById('simboloJogador');
+const placarMaquina = document.getElementById('scoreMaquina');
+const simboloMaquina = document.getElementById('simboloMaquina');
+const infoJogo = document.getElementById('infoDeJogo');
+const msgJogo = document.getElementById('mensagemDeJogo');
+const btPedra = document.getElementById('botaoPedra');
+const btPapel = document.getElementById('botaoPapel');
+const btTesoura = document.getElementById('botaoTesoura');
+const endgameModal = document.getElementById('endgameModal')
+const endgameMsg = document.getElementById('endgameMsg')
+const overlay = document.getElementById('overlay')
+const restartBtn = document.getElementById('restartBtn')
+
+
+btPedra.addEventListener('click', () => handleClick('PEDRA'));
+btPapel.addEventListener('click', () => handleClick('PAPEL'));
+btTesoura.addEventListener('click', () => handleClick('TESOURA'));
+restartBtn.addEventListener('click', restartGame)
+overlay.addEventListener('click', closeEndgameModal)
+
+function handleClick(escolhaJ){
+    if (acabouOJogo()) {
+        openEndgameModal()
+        return
+    }
+
+    let escolhaPc = gerarEscolhaMaquina();
+    jogaRound(escolhaJ, escolhaPc);
+
+    if (acabouOJogo()) {
+        openEndgameModal()
+        setFinalMessage()
     }
 }
+
+function atualizarPlacar (vencedor, escolhaJ, escolhaM){
+    if(vencedor == 'jogador'){
+        infoJogo.textContent = 'Você Venceu!';
+        msgJogo.textContent = `${escolhaJ.toLowerCase()} ganha de ${escolhaM.toLowerCase()}`
+    }else if(vencedor =='maquina'){
+        infoJogo.textContent = 'Você Perdeu.';
+        msgJogo.textContent = `${escolhaJ.toLowerCase()} perde de ${escolhaM.toLowerCase()}`
+    }else{
+        infoJogo.textContent = 'Empate!';
+        msgJogo.textContent = `${escolhaJ.toLowerCase()} empata com ${escolhaM.toLowerCase()}`
+    }
+
+    placarJogador.textContent = `Jogador: ${jogadorScore}`;
+    placarMaquina.textContent = `Maquina: ${maquinaScore}`;
+
+    switch (escolhaJ) {
+        case 'PEDRA':
+        simboloJogador.textContent = '✊'
+        break
+        case 'PAPEL':
+        simboloJogador.textContent = '✋'
+        break
+        case 'TESOURA':
+        simboloJogador.textContent = '✌'
+        break
+    }
+
+    switch (escolhaM) {
+        case 'PEDRA':
+        simboloMaquina.textContent = '✊'
+        break
+        case 'PAPEL':
+        simboloMaquina.textContent = '✋'
+        break
+        case 'TESOURA':
+        simboloMaquina.textContent = '✌'
+        break
+    }
+}
+
+function openEndgameModal() {
+  endgameModal.classList.add('active')
+  overlay.classList.add('active')
+}
+
+function closeEndgameModal() {
+  endgameModal.classList.remove('active')
+  overlay.classList.remove('active')
+}
+
+function setFinalMessage() {
+  return jogadorScore > maquinaScore
+    ? (endgameMsg.textContent = 'Você venceu!')
+    : (endgameMsg.textContent = 'Você perdeu...')
+}
+
+function restartGame() {
+  jogadorScore = 0
+  maquinaScore = 0
+  infoJogo.textContent = 'Escolha sua jogada'
+  msgJogo.textContent = 'O primeiro a marcar 5 pontos vence'
+  placarJogador.textContent = 'Jogador: 0'
+  placarMaquina.textContent = 'Computador: 0'
+  simboloJogador.textContent = '❔'
+  simboloMaquina.textContent = '❔'
+  endgameModal.classList.remove('active')
+  overlay.classList.remove('active')
+}
+

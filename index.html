@@ -28,15 +28,21 @@
             </div>
         </div>
         <div class="botoes">
-            <button id="botaoPedra"><div class="simbolo">✊</div></button>
-            <button id="botaoPapel"><div class="simbolo">✋</div></button>
-            <button id="botaoTesoura"><div class="simbolo">✌</div></button>
+            <button type="submit" id="botaoPedra"><div class="simbolo">✊</div></button>
+            <button type="submit" id="botaoPapel"><div class="simbolo">✋</div></button>
+            <button type="submit" id="botaoTesoura"><div class="simbolo">✌</div></button>
         </div>
     </div>
     <div class="footer">
         <a href="https://github.com/fpcoutinho/pedra-papel-tesoura">Copyright © The Odin Project 2023 by fpcoutinho<img src="resources/github.ico" alt="github"></a>
     </div>
+
+    <div class="modal" id="endgameModal">
+        <p class="modal-title" id="endgameMsg"></p>
+        <button type="submit" class="btn btn-restart" id="restartBtn">Play again</button>
+    </div>
+    <div class="overlay" id="overlay"></div>
     
-    
+    <script src="script.js"></script>
 </body>
 </html>
